@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ponto
+{% endblock %}
+
+{% block header %}
+<header class="masthead" style="background-image: url('../../static/img/espirito.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Ponto iJr</h1>
+            <span class="subheading">Veja a hora presencial do membro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-lg-8 col-md-10 mx-auto">
+
+    <div class="row">
+        
+        <div class="col-lg-1 col-md-1 mx-auto">
+        </div>
+        <div class="col-lg-10 col-md-10 mx-auto">
+            
+            <div class="post-preview">
+                <a  style="text-decoration:none;">
+                <h2 class="post-title">
+                    <center>{{usuario.nome}}</center>
+                    <hr>
+                </h2>
+                {% for relatorio in relatorioMembro %}
+                <div class="alert alert-success" role="alert">
+                    <center>{{ relatorio[0].data|data }} | {{ relatorio[0].horas }}</center> 
+                </div>
+                {% endfor %}
+                </a>
+            </div>
+
+        </div>
+        <div class="col-lg-1 col-md-1 mx-auto">
+        </div>
+
+        <hr>
+    
+    </div>
+
+</div>
+{% endblock %}

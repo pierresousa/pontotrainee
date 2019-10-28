@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ponto
+{% endblock %}
+
+{% block header %}
+<header class="masthead" style="background-image: url('../static/img/espirito.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Ponto iJr</h1>
+            <span class="subheading">Registre sua horas presenciais na empresa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-lg-8 col-md-10 mx-auto">
+    <div class="post-preview">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5" align="center">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/precionabotao.png" class="card-img-top img-thumbnail" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Bater ponto</h5>
+                        <p class="card-text">
+                            Registe sua presença na empresa.
+                        </p>
+                        <a href="{{url_for('ponto.baterponto',user_id=current_user.id)}}" id="baterponto" class="btn btn-primary">Bater ponto</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5" align="center">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/relatorio.jpg" class="card-img-top img-fluid img-thumbnail" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Relátorio</h5>
+                        <p class="card-text">
+                            {% if current_user.urole == "admin" %}
+                                Veja suas horas e de todos membros.
+                            {% else %}
+                                Veja seu relatorio completo.
+                            {% endif %}
+                        </p>
+                        <a href="{{url_for('ponto.relatorio')}}" class="btn btn-primary">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-lg-1 col-md-1 mx-auto">
+        </div>
+        <div class="col-lg-10 col-md-10 mx-auto">
+            
+            <div class="post-preview">
+                <a  style="text-decoration:none;">
+                <h2 class="post-title">
+                    <center>Usuários presentes</center>
+                    <hr>
+                </h2>
+                </a>
+            </div>
+
+            {% if existeMembro %}
+
+                {% for membro in membrosPresentes %}
+                    
+                    <p class="post-meta" id="usuarios">{{ membro[1].nome }} {% if current_user.urole == "admin" %}<a href="{{url_for('ponto.baterponto',user_id=membro[1].id)}}" style="text-decoration:none;" class="badge badge-danger">Retirar</a>{% endif %}</p>
+
+                    <hr>
+
+                {% endfor %}
+            {% else %}
+            
+                <p class="post-meta">Não há membros na empresa.</p>
+
+            {% endif %}
+        </div>
+        <div class="col-lg-1 col-md-1 mx-auto">
+        </div>
+
+        <hr>
+    
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script language=javascript type="text/javascript">
+
+    //Colocar aqui o codigo para bater o ponto sozinho
+
+</script>
+
+{% endblock %}
